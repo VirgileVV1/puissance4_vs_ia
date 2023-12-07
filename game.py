@@ -1,7 +1,9 @@
 import pygame
 
+
+
 class Game:
-    
+
     def __init__(self):
         self.power4 = []
         self.initialize()
