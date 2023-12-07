@@ -1,6 +1,9 @@
 import pygame
 
 CELL_SIZE = 64
+OFFSET_TOP = 16
+OFFSET_LEFT = 32
+PIECE_SIZE = 25 # x2
 
 class Game:
 
@@ -36,17 +39,24 @@ class Game:
 
 
     def handle_mouse_event(self, event):
-        if event.type == pygame.MOUSEBUTTONUP:
-            if event.button == 1:
-                print("right clic", event.pos)
-                for row in self.rects:
-                    for col, rect in enumerate(row):
-                        if (rect.collidepoint(event.pos)):
-                            if self.add_piece(col):
-                                self.round += 1
+        if event.type == pygame.MOUSEBUTTONUP:  # il y a un clique
+            if event.button == 1:               # clic gauche 
+                if (self.round % 2) == 0:       # c'est notre tour
+                    for row in self.rects:
+                        for col, rect in enumerate(row):
+                            if (rect.collidepoint(event.pos)):
+                                if self.add_piece(col):
+                                    self.round += 1
 
             if event.button == 3:
                 print("left clic")
+
+    def print_piece(self, row, col):
+        #self.rects[row][col] =  pygame.draw.rect(self.screen, (0, 0, 0), (16 + col * CELL_SIZE, 32 + row * CELL_SIZE, CELL_SIZE, CELL_SIZE), 2)
+        x = col * CELL_SIZE + OFFSET_LEFT + CELL_SIZE/2
+        y = row * CELL_SIZE + OFFSET_TOP + CELL_SIZE/2
+        pygame.draw.circle(self.screen, (255,0,0), (x,y), PIECE_SIZE, PIECE_SIZE)
+
 
     def start_game(self):
         pygame.init()
@@ -60,19 +70,18 @@ class Game:
 
             if old_round != self.round:
                 old_round = self.round
-                print("tour passe !")
-
+                # IA ici
+        
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     run = False
                 self.handle_mouse_event(event)
 
-            for ligne in range(self.LINES):
-                for colonne in range(self.COLUMN):
-                    if self.power4[ligne][colonne] == 0:
-                        self.rects[ligne][colonne] =  pygame.draw.rect(self.screen, (0, 0, 0), (16 + colonne * CELL_SIZE, 32 + ligne * CELL_SIZE, CELL_SIZE, CELL_SIZE), 2)
-                    else:
-                        self.rects[ligne][colonne] =  pygame.draw.rect(self.screen, (255, 0, 0), (16 + colonne * CELL_SIZE, 32 + ligne * CELL_SIZE, CELL_SIZE, CELL_SIZE), 2)
+            for row in range(self.LINES):
+                for col in range(self.COLUMN):
+                    self.rects[row][col] =  pygame.draw.rect(self.screen, (0, 0, 0), (OFFSET_LEFT + col * CELL_SIZE, OFFSET_TOP + row * CELL_SIZE, CELL_SIZE, CELL_SIZE), 2)
+                    if self.power4[row][col] != 0:
+                        self.print_piece(row, col)
             
             pygame.display.flip()
 
