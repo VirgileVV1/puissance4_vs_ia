@@ -1,4 +1,5 @@
 import pygame
+from timer import Timer
 
 CELL_SIZE = 64
 OFFSET_TOP = 16
@@ -60,6 +61,8 @@ class Game:
 
     def start_game(self):
         pygame.init()
+        #Initialisation du timer
+        timer = Timer(pygame.time.get_ticks())
         self.screen = pygame.display.set_mode((640, 455))
         run = True
 
@@ -82,7 +85,12 @@ class Game:
                     self.rects[row][col] =  pygame.draw.rect(self.screen, (0, 0, 0), (OFFSET_LEFT + col * CELL_SIZE, OFFSET_TOP + row * CELL_SIZE, CELL_SIZE, CELL_SIZE), 2)
                     if self.power4[row][col] != 0:
                         self.print_piece(row, col)
+            timer.update(pygame.time.get_ticks())
             
+            font = pygame.font.SysFont('Arial', 16)
+            text = font.render(str(timer), True, (0, 0, 0))
+            self.screen.blit(text, (16, 8))
+
             pygame.display.flip()
 
         pygame.quit()
