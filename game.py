@@ -1,6 +1,6 @@
 import pygame
 
-
+CELL_SIZE = 64
 
 class Game:
 
@@ -22,6 +22,21 @@ class Game:
             self.power4.append(temp)
             self.rects.append(rect)
 
+    def add_piece(self, col):
+        print("oui")
+
+    def handle_mouse_event(self, event):
+        if event.type == pygame.MOUSEBUTTONUP:
+            if event.button == 1:
+                print("right clic", event.pos)
+                for row in self.rects:
+                    for col, rect in enumerate(row):
+                        if (rect.collidepoint(event.pos)):
+                            self.add_piece(col)
+
+            if event.button == 3:
+                print("left clic")
+
     def start_game(self):
         pygame.init()
         self.screen = pygame.display.set_mode((640, 455))
@@ -31,10 +46,11 @@ class Game:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     run = False
+                self.handle_mouse_event(event)
             self.screen.fill((255, 255, 255))  # Remplir l'écran avec une couleur blanche
             for ligne in range(self.LINES):
                 for colonne in range(self.COLUMN):
-                    self.rects[ligne][colonne] =  pygame.draw.rect(self.screen, (0, 0, 0), (16 + colonne * 64, 32 + ligne * 64, 64, 64), 2)
+                    self.rects[ligne][colonne] =  pygame.draw.rect(self.screen, (0, 0, 0), (16 + colonne * CELL_SIZE, 32 + ligne * CELL_SIZE, CELL_SIZE, CELL_SIZE), 2)
             
             pygame.display.flip()
 
