@@ -76,23 +76,67 @@ Pour les opérateurs de transformation, on peut prendre
 
 Pour $M \in \mathbb{M}_{6, 7}([\![0;2]\!])$
 
-$\text{putPiece}(M, i, j) = M'\text{ avec }m'_{i, j} = 1\text{ ou }m'_{i, j} = 2\text{ si }m_{i, j} = 0$
+$\text{ajouterPieceRouge}(M, i, j) = M'\text{ avec }m'_{i, j} = 1$
 
-$\text{putPiece2}(M, i, j) = M'\text{ avec }m'_{i-1, j} = 1\text{ ou }m'_{i-1, j} = 2\text{ si }m_{i, j} \neq 0$
+$\text{ajouterPieceJaune}(M, i, j) = M'\text{ avec }m'_{i, j} = 2$
+
+$\text{ajouterPieceRougeSurPiece}(M, i, j) = M'\text{ avec }m'_{i, j} = 1$
+$\text{ajouterPieceJauneSurPiece}(M, i, j) = M'\text{ avec }m'_{i, j} = 2$
 
 
-$O = \{ \text{putPiece}, \text{putPiece2} \}$
+% $\text{ajouterPieceJaune}(M, i, j) = M'\text{ avec }m'_{i, j} = 2$
+
+% $\text{putPiece}(M, i, j) = M'\text{ avec }m'_{i, j} = 1\text{ ou }m'_{i, j} = 2\text{ si }m_{i, j} = 0$
+
+% $\text{putPiece2}(M, i, j) = M'\text{ avec }m'_{i-1, j} = 1\text{ ou }m'_{i-1, j} = 2\text{ si }m_{i, j} \neq 0$
+
+
+% $O = \{ \text{putPiece}, \text{putPiece2} \}$
+
+$O = \{ \text{ajouterPieceRouge}, \text{ajouterPieceJaune}, \text{ajouterPieceRougeSurPiece}, \text{ajouterPieceJauneSurPiece} \}$
+
 
 Pour les prédicats de $P$, on a :
 
 Pour $M \in \mathbb{M}_{6, 7}([\![0;2]\!])$
 
-$\text{p1} = (\text{putPiece}, M) = \text{True si }m_{i, j} = 0\text{ False sinon} $
 
-$\text{p2} = (\text{putPiece2}, M) = \text{True si }m_{i, j} \neq 0\text{ False sinon} $
+$\text{p1} = (\text{ajouterPieceRouge}(M, i, j), M) $
+
+\[ \text{p\_r1}(\text{ajouterPieceRouge}(M, i, j), M) =
+  \begin{cases}
+    True       & \quad \text{si } m_{i, j} =0\\
+    False      & \quad \text{sinon}
+  \end{cases}
+\]
+ 
+\[ \text{p\_j1}(\text{ajouterPieceJaune}(M, i, j), M) =
+  \begin{cases}
+    True       & \quad \text{si } m_{i, j} =0\\
+    False      & \quad \text{sinon}
+  \end{cases}
+\]
 
 
-$P = \{\text{p1}, \text{p2} \}$
+
+
+\[ \text{p\_r2}(\text{ajouterPieceRougeSurPiece}(M, i, j), M) =
+  \begin{cases}
+    True       & \quad \text{si } m_{i+1, j} \neq 0 \wedge m_{i-1, j} = 0 \\
+    False      & \quad \text{sinon}
+  \end{cases}
+\]
+
+\[ \text{p\_j2}(\text{ajouterPieceJauneSurPiece}(M, i, j), M) =
+  \begin{cases}
+    True       & \quad \text{si } m_{i+1, j} \neq 0 \wedge m_{i-1, j} = 0 \\
+    False      & \quad \text{sinon}
+  \end{cases}
+\]
+
+ 
+
+$P = \{\text{p\_r1}, \text{p\_j1}, \text{p\_r2}, \text{p\_j2} \}$
 
 
 Pour les coups, on a : $\forall(o,e), c(o,e) = 1$
