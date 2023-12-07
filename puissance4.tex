@@ -1,0 +1,102 @@
+% Type de document : "article"
+\documentclass{article}
+    \addtolength{\topmargin}{-3cm}
+    \addtolength{\textheight}{3cm}
+    
+%----- Préambule ---------
+
+% Encodage du fichier source
+\usepackage[utf8]{inputenc}
+
+% Typographie française
+\usepackage[french]{babel}
+
+% pour les images
+\usepackage{graphicx}
+
+\usepackage{amsmath}
+\usepackage{amsfonts} 
+\usepackage{amssymb}
+
+% Déclaration pour l'en-tête
+\title{\textbf{Modélisation d'un puissance 4}}
+\author{Adam Creusevault, Virgile Val-Villellas, Matthieu Pays}
+
+%---- corps --------
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+
+Un problème $Q$ est un sextuplet $(E, i, F, O, P, C)$ où :
+
+ - $E$ est un ensemble d'états
+
+ - $i\in E$ un état itinial
+
+ - $F \subseteq E$ un sous-ensemble d'états finaux
+
+ - $O = \{ o : E \nrightarrow E \} $ un ensemble d'opérateur de transformation.
+
+ - $P = \{ p : O \times E \nrightarrow \mathbb{B} \} $ ensemble des prédicats associés définissant le cas d'applicabilité d'un opérateur sur un état.
+
+ - $C = \{ c : O \times E \nrightarrow \mathbb{R^+} \} $ un ensemble de fonctions de coûts associées.
+
+
+On définit le tableau d'un puissance 4 par une matrice $T \in \mathbb{M}_{6, 7}([\![0;2]\!])$ où $0$ représente un vide dans le tableau, $1$ représente les rouges et $2$ représente les jaunes.
+
+$i = O_{6, 7}$ c'est-à-dire c'est une matrice remplie de $0$. Plus visuellement : 
+
+
+$$
+i = 
+\begin{pmatrix}
+0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 & 0 & 0
+\end{pmatrix}$$
+
+
+En ce qui concerne $F$, on a l'ensemble des matrices tel qu'ils ont 4 éléments étant égaux successivement et différents de 0. 
+
+cond1 : $m_{i,j} = m_{i+1,j} = m_{i+2,j} = m_{i+3,j} \neq 0$
+
+cond2 : $m_{i,j} = m_{i,j+1} = m_{i,j+2} = m_{i,j+3} \neq 0$
+
+cond3 : $m_{i,j} = m_{i+1,j+1} = m_{i+2,j+2} = m_{i+3,j+3} \neq 0$
+
+$F = \{ (m_{i,j})_{i\in  [\![1;6]\!], j\in [\![1;7]\!]  } |  \text{ cond1 } \vee \text{ cond2 } \vee \text{ cond3 } \}$
+
+
+Pour les opérateurs de transformation, on peut prendre 
+
+Pour $M \in \mathbb{M}_{6, 7}([\![0;2]\!])$
+
+$\text{putPiece}(M, i, j) = M'\text{ avec }m'_{i, j} = 1\text{ ou }m'_{i, j} = 2\text{ si }m_{i, j} = 0$
+
+$\text{putPiece2}(M, i, j) = M'\text{ avec }m'_{i-1, j} = 1\text{ ou }m'_{i-1, j} = 2\text{ si }m_{i, j} \neq 0$
+
+
+$O = \{ \text{putPiece}, \text{putPiece2} \}$
+
+Pour les prédicats de $P$, on a :
+
+Pour $M \in \mathbb{M}_{6, 7}([\![0;2]\!])$
+
+$\text{p1} = (\text{putPiece}, M) = \text{True si }m_{i, j} = 0\text{ False sinon} $
+
+$\text{p2} = (\text{putPiece2}, M) = \text{True si }m_{i, j} \neq 0\text{ False sinon} $
+
+
+$P = \{\text{p1}, \text{p2} \}$
+
+
+Pour les coups, on a : $\forall(o,e), c(o,e) = 1$
+
+
+\end{document}
+%---- fin du corps
