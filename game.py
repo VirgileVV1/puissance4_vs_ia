@@ -171,13 +171,17 @@ class Game:
                     win = 2
                     print("joueur 2 gagnant")
 
+                
+                pygame.draw.rect(self.screen, (0, 0, 255), (OFFSET_LEFT, OFFSET_TOP, CELL_SIZE * COLUMNS, CELL_SIZE * ROWS)) 
                 for row in range(ROWS):
                     for col in range(COLUMNS):
-                        self.rects[row][col] =  pygame.draw.rect(self.screen, (0, 0, 0), (OFFSET_LEFT + col * CELL_SIZE, OFFSET_TOP + row * CELL_SIZE, CELL_SIZE, CELL_SIZE), 2)
+                        self.rects[row][col] =  pygame.draw.rect(self.screen, (0, 0, 0, 128), (OFFSET_LEFT + col * CELL_SIZE, OFFSET_TOP + row * CELL_SIZE, CELL_SIZE, CELL_SIZE), 2)
                         if self.power4[row][col] == 1:
                             self.print_piece(row, col, (255,0,0))
-                        if self.power4[row][col] == 2:
+                        elif self.power4[row][col] == 2:
                             self.print_piece(row, col, (0,255,0))
+                        else:
+                            self.print_piece(row, col, (255, 255, 255))
 
                 timer.update(pygame.time.get_ticks())
                 
