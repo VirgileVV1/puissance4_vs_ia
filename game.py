@@ -67,6 +67,8 @@ class Game:
                                     self.round += 1
         if event.type == pygame.KEYDOWN and event.key == pygame.K_f:
             print("c'est au tour de l'ia")
+            self.ai_round()
+
 
     def print_piece(self, row, col, color):
         #self.rects[row][col] =  pygame.draw.rect(self.screen, (0, 0, 0), (16 + col * CELL_SIZE, 32 + row * CELL_SIZE, CELL_SIZE, CELL_SIZE), 2)
@@ -122,10 +124,11 @@ class Game:
      
 
     def ai_round(self): 
-        #ai = AI(copy.copy(self.power4), 2, 1)
-        #return ai.search_best_col()
-        return 0
-        
+        ai = AI(copy.deepcopy(self.power4), 2, 1)
+        col = ai.search_best_col()
+        if self.add_piece(col, 2):
+            self.round += 1
+
     def start_game(self):
         pygame.init()
         #Initialisation du timer
