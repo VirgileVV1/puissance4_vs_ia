@@ -122,8 +122,9 @@ class Game:
      
 
     def ai_round(self): 
-        ai = AI(copy.copy(self.power4), 2, 1)
-        return ai.search_best_col()
+        #ai = AI(copy.copy(self.power4), 2, 1)
+        #return ai.search_best_col()
+        return 0
         
     def start_game(self):
         pygame.init()
