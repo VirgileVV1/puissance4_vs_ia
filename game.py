@@ -133,7 +133,7 @@ class Game:
         pygame.init()
         #Initialisation du timer
         timer = Timer(pygame.time.get_ticks())
-        self.screen = pygame.display.set_mode((640, 455))
+        self.screen = pygame.display.set_mode((800, 600))
         run = True
         win = None
         while run:            
@@ -171,7 +171,6 @@ class Game:
                     win = 2
                     print("joueur 2 gagnant")
 
-                
                 pygame.draw.rect(self.screen, (0, 0, 255), (OFFSET_LEFT, OFFSET_TOP, CELL_SIZE * COLUMNS, CELL_SIZE * ROWS)) 
                 for row in range(ROWS):
                     for col in range(COLUMNS):
@@ -186,8 +185,15 @@ class Game:
                 timer.update(pygame.time.get_ticks())
                 
                 font = pygame.font.SysFont('Arial', 16)
-                text = font.render(str(timer), True, (0, 0, 0))
-                self.screen.blit(text, (16, 8))
+                label_timer = font.render("Temps écoulé", True, (0, 0, 0))
+                text_timer = font.render(str(timer), True, (0, 0, 0))
+                label_tour = font.render("Tours", True, (0, 0, 0))
+                text_tour = font.render(str(self.round), True, (0, 0, 0))
+                self.screen.blit(label_tour, (572, 64))
+                self.screen.blit(text_tour, (656, 64))
+                self.screen.blit(label_timer, (512, 88))
+                self.screen.blit(text_timer, (656, 88))
+
 
             pygame.display.flip()
 
