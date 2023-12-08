@@ -9,7 +9,7 @@ class Timer:
         time = self.elapsed_time // 1000
         minutes = (time % 3600) // 60
         seconds = time % 60
-        return "Temps écoulé : {:02d}:{:02d}".format(minutes, seconds)
+        return "{:02d}:{:02d}".format(minutes, seconds)
     
     def update(self, ticks):
         self.current_time = ticks
