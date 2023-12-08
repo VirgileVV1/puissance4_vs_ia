@@ -1,0 +1,4 @@
+# vs code config file
+.vscode/
+
+__pycache__/
