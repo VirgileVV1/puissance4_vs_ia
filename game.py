@@ -65,7 +65,7 @@ class Game:
                             if (rect.collidepoint(event.pos)):
                                 if self.add_piece(col, 2):
                                     self.round += 1
-        if event.type == pygame.K_f:
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_f:
             print("c'est au tour de l'ia")
 
     def print_piece(self, row, col, color):
